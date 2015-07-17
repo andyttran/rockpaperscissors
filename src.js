@@ -53,6 +53,7 @@ var rockPaperScissors = function(n, game){
 var plays = ['rock', 'paper', 'scissor'];
 function rockpaperscissors(n){
   var result = [];
+  var temp;
   if(n === 0){
     return [[]];
   }
