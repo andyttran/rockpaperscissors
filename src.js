@@ -44,7 +44,7 @@ var rockPaperScissors = function(n, game){
   games = [];
   //NOTE: our recursive calls would instantiate its own version of plays each time. How would we fix this ineffeciency?
   var plays = ['rock', 'paper', 'scissors'];
-  // 3. Base case when we have the right number of rounds played we return a nested array. E.g., for n = 3, 
+  // 3. Base case, when we have the right number of rounds played we return a nested array. E.g., for n = 3, 
   //we could return [['rock', 'rock', 'rock']]. Think about which it needs to be a nested array.
   // NOTE: Typically the base case will have a return statement.
   if(game.length === n){
@@ -63,20 +63,33 @@ var rockPaperScissors = function(n, game){
 //METHOD 3:
 //No helper function & no extra arguments passed into main function. (Bottom-up approach)
 //No extra arguments means you cannot save the state.  The return value must be the state itself.
+
+//If we cannot define a 'plays' array outside of the function, how would we place this within the function but not have it 
+//repeatedly be instantiated with each recursive call?
 var plays = ['rock', 'paper', 'scissor'];
 function rockpaperscissors(n){
+  // 1. Initiate variables.
   var result = [];
   var temp;
+  // 2. Base case, when we reach the bottom of the stack we return an instantiating 
   if(n === 0){
     return [[]];
   }
+  // 3. Recursively call itself until we reach the bottom of the stack first, prior to building up solutions.
   var games = rockpaperscissors(n-1);
+  // 4. Run operations after the bottom of stack is reached.  This technically starts the build up from the bottom up.
+  // 'games' is equal to an empty nested array the first time [[]]
   for(var i = 0; i < 3; i++){
+    //make a temporary copy of the 'games' array
     temp = games.slice()
     for(var j = 0; j < temp.length; j++){
+      //add a play to the front of each item in the temp array
       temp[j] = [plays[i]].concat(temp[j]);
     }
+    //collect the expanded temp array into the results array
     result = result.concat(temp);
   }
+  // 5. return results up the stack to start the next round of plays to be added, 
+  //or if at the top of the stack return the entire solution. 
   return result;
 }
