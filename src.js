@@ -36,7 +36,7 @@ var rockPaperScissors = function (n) {
 
 //The input parameter has been expanded to include game, which maintains our state
 var rockPaperScissors = function(n, game){
-  //1. Instantiate variables, use the OR operator to instantate game if no game has been defined
+  //1. Instantiate variables, use the OR operator to instantate 'game' if 'game' was not included as an input parameter
   n = n || 3;
   game = game || [];
   //NOTE: games is no longer a scope variable we can push in. Each recursive call in the stack creates its own games array.
@@ -44,18 +44,19 @@ var rockPaperScissors = function(n, game){
   games = [];
   //NOTE: our recursive calls would instantiate its own version of plays each time. How would we fix this ineffeciency?
   var plays = ['rock', 'paper', 'scissors'];
-  //Base case when we have the right number of rounds played we return a nested array. E.g., for n = 3, 
+  // 3. Base case when we have the right number of rounds played we return a nested array. E.g., for n = 3, 
   //we could return [['rock', 'rock', 'rock']]. Think about which it needs to be a nested array.
+  // NOTE: Typically the base case will have a return statement.
   if(game.length === n){
     return [game];
   }
-  //Recursive case, we will recursively call this function, adding each of the possible plays for the round
+  // 4. Recursive case, we will recursively call this function, adding each of the possible plays for the round
   for(var i = 0; i < 3; i++){
-    //when we concat the games array, with the result of the recursive call to rockPaperScissors (a nested array),
-    //we get the proper collection of solutions where you have an array of arrays.
+    //NOTE: when we concat the games array, with the result of the recursive call to rockPaperScissors (a nested array),
+    //we get the proper format for the collection of solutions (array of arrays).
     games = games.concat(rockPaperScissors(n, game.concat(plays[i])));
   }
-  //We return the collections of solutions up one stack (or out of the function if this is the top level)
+  //2. We return the collections of solutions up one stack (or out of the function if this is the top level)
   return games
 }
 
